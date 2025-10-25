@@ -2,7 +2,6 @@
     <main>
         <UIAppHeader />
         <slot />
-        <UIAppCta />
         <UIAppFooter />
     </main>
 </template>

@@ -141,7 +141,7 @@ a {
 }
 
 .wrapper {
-    width: min(90rem, 90%);
+    width: min(74.5rem, 90%);
     margin-inline: auto;
 }
 </style>

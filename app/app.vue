@@ -89,6 +89,7 @@
 
 body {
     font-family: var(--ff-primary);
+    background-color: var(--clr-neutral-100);
 }
 
 img,
@@ -135,6 +136,10 @@ a {
     transition: all 0.2s ease-in-out;
 }
 
+ul {
+    padding: 0;
+}
+
 #root,
 #__next {
     isolation: isolate;
@@ -143,5 +148,21 @@ a {
 .wrapper {
     width: min(74.5rem, 90%);
     margin-inline: auto;
+}
+
+.desk {
+    display: none;
+
+    @media (min-width: 1024px) {
+        display: block;
+    }
+}
+
+.mobi {
+    display: block;
+
+    @media (min-width: 1024px) {
+        display: none;
+    }
 }
 </style>

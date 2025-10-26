@@ -1,7 +1,7 @@
 <template>
     <footer>
         <div class="wrapper">
-            <div class="content">
+            <div class="footer-content">
                 <p>Made with ❤️ and 🥑</p>
                 <div class="links">
                     <a href="#">
@@ -18,3 +18,19 @@
         </div>
     </footer>
 </template>
+
+<style lang="css" scoped>
+footer {
+    padding-block: 2.5rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.links {
+    display: flex;
+    gap: 1.5rem;
+}
+</style>

@@ -1,27 +1,53 @@
+<script setup lang="ts">
+const state = reactive({
+    isActive: false,
+});
+
+const toggleNavMenu = () => {
+    state.isActive = !state.isActive;
+};
+
+const closeNavMenu = () => {
+    state.isActive = false;
+};
+</script>
+
 <template>
     <header>
         <nav>
             <NuxtLink to="/" class="logo">
                 <NuxtImg src="/assets/images/logo.svg" alt="logo svg" />
             </NuxtLink>
-            <ul>
+            <ul :class="{ active: state.isActive }">
                 <li>
-                    <NuxtLink to="/">Home</NuxtLink>
+                    <NuxtLink to="/" @click.native="closeNavMenu"
+                        >Home</NuxtLink
+                    >
                 </li>
                 <li>
-                    <NuxtLink to="/about">About</NuxtLink>
+                    <NuxtLink to="/about" @click.native="closeNavMenu"
+                        >About</NuxtLink
+                    >
                 </li>
                 <li>
-                    <NuxtLink to="/">Recipes</NuxtLink>
+                    <NuxtLink to="/recipes" @click.native="closeNavMenu"
+                        >Recipes</NuxtLink
+                    >
                 </li>
                 <li class="special">
-                    <NuxtLink to="/" class="mobi">Browse Recipes</NuxtLink>
+                    <NuxtLink to="/" class="mobi" @click.native="closeNavMenu"
+                        >Browse Recipes</NuxtLink
+                    >
                 </li>
             </ul>
             <NuxtLink to="/recipes" class="cta-btn desk"
                 >Browse Recipes</NuxtLink
             >
-            <div class="burger mobi">
+            <div
+                class="burger mobi"
+                @click="toggleNavMenu"
+                :class="{ active: state.isActive }"
+            >
                 <NuxtImg src="/assets/images/icon-hamburger-menu.svg" />
             </div>
         </nav>
@@ -55,6 +81,12 @@ ul {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    transform: translateX(110%);
+    transition: all 0.2s ease;
+
+    &.active {
+        transform: translateX(0%);
+    }
 
     li a {
         color: var(--clr-neutral-900);
@@ -75,8 +107,10 @@ ul {
 
     @media (min-width: 1024px) {
         position: static;
+        inset: 0;
         flex-direction: row;
         background-color: var(--clr-neutral-100);
+        transform: translateX(0%);
     }
 }
 

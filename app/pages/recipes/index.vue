@@ -2,6 +2,10 @@
 definePageMeta({
     layout: "recipes",
 });
+
+import { type Recipe } from "~~/types/recipe";
+
+const { data: recipes } = await useFetch<Recipe[]>("/data.json");
 </script>
 
 <template>
@@ -42,10 +46,6 @@ definePageMeta({
                                 <option value="20">20 minutes</option>
                                 <!-- <button>Clear</button> -->
                             </select>
-                            <NuxtImg
-                                src="/assets/images/icon-chevron-down.svg"
-                                alt=""
-                            />
                         </div>
                         <div class="form">
                             <NuxtImg
@@ -59,126 +59,75 @@ definePageMeta({
                         </div>
                     </div>
                     <div class="recipes-box">
-                        <div class="recipe">
-                            <NuxtImg
-                                src="/assets/images/mediterranean-chickpea-salad-large.webp"
-                                alt=""
-                            />
-                            <div class="recipe-info">
-                                <h3>Mediterranean Chickpea Salad Large</h3>
-                                <p>
-                                    A refreshing, protein packed salad tossed in
-                                    a lemon-olive oil dressing.
-                                </p>
-                                <div class="metrics">
-                                    <div class="metric">
-                                        <NuxtImg
-                                            src="/assets/images/icon-servings.svg"
-                                            alt=""
-                                        />
-                                        <span>Servings: 2</span>
-                                    </div>
-                                    <div class="metric">
-                                        <NuxtImg
-                                            src="/assets/images/icon-prep-time.svg"
-                                            alt=""
-                                        />
-                                        <span>Prep: 10 mins</span>
-                                    </div>
-                                    <div class="metric">
-                                        <NuxtImg
-                                            src="/assets/images/icon-cook-time.svg"
-                                            alt=""
-                                        />
-                                        <span>Cook: 0 mins</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <NuxtLink to="/recipes">View Recipe</NuxtLink>
-                        </div>
-                        <div class="recipe">
-                            <NuxtImg
-                                src="/assets/images/mediterranean-chickpea-salad-large.webp"
-                                alt=""
-                            />
-                            <div class="recipe-info">
-                                <h3>Mediterranean Chickpea Salad Large</h3>
-                                <p>
-                                    A refreshing, protein packed salad tossed in
-                                    a lemon-olive oil dressing.
-                                </p>
-                                <div class="metrics">
-                                    <div class="metric">
-                                        <NuxtImg
-                                            src="/assets/images/icon-servings.svg"
-                                            alt=""
-                                        />
-                                        <span>Servings: 2</span>
-                                    </div>
-                                    <div class="metric">
-                                        <NuxtImg
-                                            src="/assets/images/icon-prep-time.svg"
-                                            alt=""
-                                        />
-                                        <span>Prep: 10 mins</span>
-                                    </div>
-                                    <div class="metric">
-                                        <NuxtImg
-                                            src="/assets/images/icon-cook-time.svg"
-                                            alt=""
-                                        />
-                                        <span>Cook: 0 mins</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <NuxtLink to="/recipes">View Recipe</NuxtLink>
-                        </div>
-                        <div class="recipe">
-                            <NuxtImg
-                                src="/assets/images/mediterranean-chickpea-salad-large.webp"
-                                alt=""
-                            />
-                            <div class="recipe-info">
-                                <h3>Mediterranean Chickpea Salad Large</h3>
-                                <p>
-                                    A refreshing, protein packed salad tossed in
-                                    a lemon-olive oil dressing.
-                                </p>
-                                <div class="metrics">
-                                    <div class="metric">
-                                        <NuxtImg
-                                            src="/assets/images/icon-servings.svg"
-                                            alt=""
-                                        />
-                                        <span>Servings: 2</span>
-                                    </div>
-                                    <div class="metric">
-                                        <NuxtImg
-                                            src="/assets/images/icon-prep-time.svg"
-                                            alt=""
-                                        />
-                                        <span>Prep: 10 mins</span>
-                                    </div>
-                                    <div class="metric">
-                                        <NuxtImg
-                                            src="/assets/images/icon-cook-time.svg"
-                                            alt=""
-                                        />
-                                        <span>Cook: 0 mins</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <NuxtLink to="/recipes">View Recipe</NuxtLink>
-                        </div>
+                        <RecipeItem
+                            v-for="recipe in recipes"
+                            :recipe="recipe"
+                        />
                     </div>
                 </div>
             </div>
         </section>
-
-        Max Prep Time Max Cook Time Search by name or ingredient...
-
-        <!-- Populate recipes using data from the data.json file -->
-
-        Made with ❤️ and 🥑
     </main>
 </template>
+
+<style lang="css" scoped>
+header {
+    padding-block: 3rem;
+    display: grid;
+    gap: 0.75rem;
+}
+
+header h2 {
+    color: var(--clr-neutral-900);
+    font-size: 2.5rem;
+}
+
+header p {
+    color: var(--clr-neutral-600);
+}
+
+.header {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.selectss {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.selectss select {
+    padding: 1rem 10px;
+    border-radius: 10px;
+    background-color: var(--clr-white);
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    background-color: var(--clr-white);
+    gap: 0.75rem;
+    padding: 1rem 10px;
+    border: 1px solid var(--clr-neutral-300);
+    border-radius: 10px;
+}
+
+.form img {
+    width: 20px;
+    height: 20px;
+}
+
+.form input {
+    border: none;
+    outline: none;
+}
+
+.recipes-box {
+    display: grid;
+    gap: 2rem;
+
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+</style>

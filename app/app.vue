@@ -119,6 +119,7 @@ h6 {
 
 p {
     text-wrap: pretty;
+    font-size: 1.25rem;
     line-height: 1.6;
 }
 h1,
